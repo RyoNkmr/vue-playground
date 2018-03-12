@@ -68,6 +68,7 @@ export default {
     paintStart(rowIndex, columnIndex) {
       this.updateCellState(rowIndex, columnIndex, Math.abs(this.cells[rowIndex][columnIndex] - 1));
       this.paint = this.cells[rowIndex][columnIndex];
+      this.painted.add(`${rowIndex}${columnIndex}`);
     },
     updateCellState(rowIndex, columnIndex, state) {
       const newRow = this.cells[rowIndex].map((current, index) => (
@@ -80,11 +81,15 @@ export default {
       this.paint = null;
     },
     paintCell(rowIndex, columnIndex, event) {
-      if (event.buttons === 0 && this.painted.size > 0) {
-        this.paintEnd();
+      if (
+        this.painted.has(`${rowIndex}${columnIndex}`)
+        || (this.cells[rowIndex][columnIndex] > 0 && this.paint > 0)
+        || (this.cells[rowIndex][columnIndex] === 0 && this.paint === 0)
+      ) {
         return;
       }
-      if (this.painted.has(`${rowIndex}${columnIndex}`)) {
+      if (event.buttons === 0) {
+        this.paintEnd();
         return;
       }
       this.updateCellState(rowIndex, columnIndex, this.paint);
