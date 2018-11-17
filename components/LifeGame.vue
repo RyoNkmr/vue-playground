@@ -1,30 +1,36 @@
 <template>
-  <div>
-    <div class="LifeGame">
-      <div class="LifeGameView">
-        <div
-          class="LifeGameRow"
-          v-for="(row, rowIndex) in cells"
-          :key="rowIndex"
-        >
-          <life-cell
-            :state="cell"
-            @mousedown.native.prevent="paintStart(rowIndex, columnIndex)"
-            @mouseenter.native="paint === null ? null : paintCell(rowIndex, columnIndex, $event)"
-            v-for="(cell, columnIndex) in row"
-            :key="`${rowIndex}x${columnIndex}`"
-          />
-        </div>
+  <div class="lifegame">
+    <p class="lifegame__frame">{{ frame }}</p>
+
+    <div class="lifegame__view">
+      <div
+        class="lifegame__row"
+        v-for="(row, rowIndex) in cells"
+        :key="rowIndex"
+      >
+        <life-cell
+          :dead="dead"
+          :key="`${rowIndex}x${columnIndex}`"
+          :live="live"
+          :state="cell"
+          @mousedown.native.prevent="paintStart(rowIndex, columnIndex)"
+          @mouseenter.native="paint === null ? null : paintCell(rowIndex, columnIndex, $event)"
+          v-for="(cell, columnIndex) in row"
+        />
       </div>
     </div>
-    <p>{{ frame }}</p>
+
     <input v-model="newSize" type="number" @keyup.enter="setNewSize" />
-    <button @click.prevent="setNewSize">
+    <thor-button
+      @click="setNewSize"
+      :primary="true"
+    >
       {{
         size === newSize
         ? `reset`
         : `set new size ${newSize}`
-      }}</button>
+        }}
+    </thor-button>
     <hr />
     <button @click.prevent="goNext">Next</button>
     <hr />
@@ -32,16 +38,28 @@
     <button @click.prevent="auto = !auto">
       {{ auto ? 'stop' : 'start' }}
     </button>
+
+    <ul>
+      <li>
+
+      </li>
+      <li>
+        <p>Cell</p>
+        <input v-model.lazy="live" /><input v-model.lazy="dead" />
+      </li>
+    </ul>
   </div>
 </template>
 <script>
 import LifeCell from '~/components/LifeCell.vue';
+import ThorButton from '~/components/ThorButton.vue';
 
 const N = [-1, 0, 1];
 const MINIMUM_INTERVAL_MS = 150;
 export default {
   components: {
     LifeCell,
+    ThorButton,
   },
   data() {
     return {
@@ -54,6 +72,8 @@ export default {
       frame: 0,
       paint: null,
       painted: new Set(),
+      live: '😂',
+      dead: '💀',
     };
   },
   watch: {
@@ -142,17 +162,21 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.LifeGame {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &View {
+.lifegame {
+  &__view {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
   }
-  &Row {
+
+  &__row {
     display: flex;
   }
+
+  .frame {
+
+  }
 }
+
 </style>
