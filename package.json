@@ -1,11 +1,12 @@
 {
-  "name": "nuxt",
-  "version": "1.0.0",
-  "description": "Nuxt.js project",
+  "name": "vue-playground",
+  "version": "0.0.1",
+  "description": "playground",
   "author": "RyoNkmr <ryonakamuraryo@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "version": "nuxt --version",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
