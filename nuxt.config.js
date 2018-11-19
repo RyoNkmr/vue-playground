@@ -1,4 +1,12 @@
+
+const productionSettings = process.env.NODE_ENV === "production"
+  ? router: {
+    mode: 'spa',
+    base: '/vue-playground/',
+  }
+  : {};
 module.exports = {
+  ...productionSettings,
   /*
   ** Headers of the page
   */
@@ -10,9 +18,6 @@ module.exports = {
       { hid: "description", name: "description", content: "Nuxt.js project" }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
-  },
-  router: {
-    base: process.env.NODE_ENV === "production" ? "/vue-playground/" : "/"
   },
   /*
   ** Customize the progress bar color
