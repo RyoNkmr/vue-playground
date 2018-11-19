@@ -46,6 +46,9 @@ jobs:
             mv ./dist/* .
             rm -rf dist
       - run:
+          name: add .nojekyll
+          command: touch .nojekyll
+      - run:
           name: ssh-keyscan
           command: |
             mkdir ~/.ssh
