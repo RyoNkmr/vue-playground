@@ -19,6 +19,11 @@
           class="button--grey">GitHub</a>
       </div>
     </div>
+    <ul>
+      <li><a href="./life">Life</a></li>
+      <li><a href="./placeholden">placeholden</a></li>
+      <li><a href="./dispose">vue-dispose</a></li>
+    </ul>
   </section>
 </template>
 
