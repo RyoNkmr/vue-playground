@@ -1,10 +1,13 @@
+const productionSettings =
+  process.env.NODE_ENV === "production"
+    ? {
+        router: {
+          mode: "spa",
+          base: "/vue-playground/"
+        }
+      }
+    : {};
 
-const productionSettings = process.env.NODE_ENV === "production"
-  ? router: {
-    mode: 'spa',
-    base: '/vue-playground/',
-  }
-  : {};
 module.exports = {
   ...productionSettings,
   /*
